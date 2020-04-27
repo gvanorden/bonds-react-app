@@ -224,6 +224,9 @@ class BondPricingTwo extends Component {
             this.setState({ hideTable: false, showCards: { visibility: 'visible' } })
         }
         try {
+            if (e.target.files[0].name !== this.state.label) {
+                this.setState({ currentPage: 0 })
+            }
 
             var reader = new FileReader();
 
