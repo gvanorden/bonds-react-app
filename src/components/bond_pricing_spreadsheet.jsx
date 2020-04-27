@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Helmet } from "react-helmet";
 import { Form, Table, Card, Col, InputGroup, Button, OverlayTrigger, Tooltip, Pagination } from "react-bootstrap";
 import { CSVLink } from "react-csv";
 import '../index.css'
@@ -25,7 +26,8 @@ class BondPricingTwo extends Component {
             exportResults: [],
             pages: [],
             perPage: 5,
-            currentPage: 0
+            currentPage: 0,
+            containerStyle: null
         };
 
         this.setFilename = this.setFilename.bind(this)
@@ -37,6 +39,16 @@ class BondPricingTwo extends Component {
         this.setNextPage = this.setNextPage.bind(this)
         this.exportOnClick = this.exportOnClick.bind(this)
         this.handleClickX = this.handleClickX.bind(this)
+    }
+
+    componentDidMount() {
+        const pageWidth = document.documentElement.clientWidth
+        if (pageWidth < 1000) {
+            this.setState({ containerStyle: { width: '90%', margin: 'auto' } })
+        }
+        else {
+            this.setState({ containerStyle: { width: '75%', margin: 'auto' } })
+        }
     }
 
     setPages(bonds) {
@@ -291,147 +303,154 @@ class BondPricingTwo extends Component {
         return (
             <div>
                 <div className="jumbotron-pages"></div>
-                <div style={{ width: '70%', minWidth: '850px', margin: 'auto', marginTop: '2em' }}>
-                    <Form stlye={{ fontSize: '.90em' }}>
-                        <Form.Row style={{ float: 'left', width: '20%' }}>
-                            <Col>
-                                <Form.Label>VALUE AS OF</Form.Label>
-                                <InputGroup>
-                                    <Form.Control
-                                        required
-                                        name="aMonth"
-                                        type="number"
-                                        placeholder="Month"
-                                        min="1"
-                                        max="12"
-                                        defaultValue={this.state.month}
-                                    />
-                                    <InputGroup.Append>
-                                        <InputGroup.Text id="inputGroupPrepend">/</InputGroup.Text>
-                                    </InputGroup.Append>
-                                    <Form.Control
-                                        required
-                                        name="aYear"
-                                        type="number"
-                                        placeholder="Year"
-                                        maxLength="4"
-                                        min="1992"
-                                        max={this.state.year}
-                                        style={{ marginLeft: '-1px' }}
-                                        defaultValue={this.state.year}
-                                    />
-                                </InputGroup>
-                                <OverlayTrigger placement='right' overlay={
-                                    <Tooltip style={this.state.showTooltip}>
-                                        Revalue all bonds by this date.
+                <div style={this.state.containerStyle ? this.state.containerStyle : { width: '75%', margin: 'auto' }}>
+                    <div style={{ width: '100%', marginTop: '2em' }}>
+                        <Form stlye={{ fontSize: '.90em' }}>
+                            <Form.Row style={{ float: 'left', width: '20%' }}>
+                                <Col>
+                                    <Form.Label>VALUE AS OF</Form.Label>
+                                    <InputGroup>
+                                        <Form.Control
+                                            required
+                                            name="aMonth"
+                                            type="number"
+                                            placeholder="Month"
+                                            min="1"
+                                            max="12"
+                                            defaultValue={this.state.month}
+                                        />
+                                        <InputGroup.Append>
+                                            <InputGroup.Text id="inputGroupPrepend">/</InputGroup.Text>
+                                        </InputGroup.Append>
+                                        <Form.Control
+                                            required
+                                            name="aYear"
+                                            type="number"
+                                            placeholder="Year"
+                                            maxLength="4"
+                                            min="1992"
+                                            max={this.state.year}
+                                            style={{ marginLeft: '-1px' }}
+                                            defaultValue={this.state.year}
+                                        />
+                                    </InputGroup>
+                                    <OverlayTrigger placement='right' overlay={
+                                        <Tooltip style={this.state.showTooltip}>
+                                            Revalue all bonds by this date.
                                     </Tooltip>}>
-                                    <Button type="button" size='sm' variant='success' onMouseEnter={this.onUpdateEnter} onClick={this.onUpdateClick} style={{ position: 'absolute', top: '0', right: '.5em', fontSize: '.55em', fontWeight: 'bold' }}>UPDATE</Button>
-                                </OverlayTrigger>
-                                <Card style={{ marginTop: '2em' }}>
-                                    <Card.Header className='card-header'>VALUED AS OF</Card.Header>
-                                    <Card.Body style={{ textAlign: 'center' }}>
-                                        <Card.Title>{this.state.totalDate}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Form.Row>
-                        <Form.Row>
-                            <Col style={{ marginLeft: '.5em', minWidth: '700px' }}>
-                                <Form.Label>ATTACHMENT</Form.Label>
-                                <Form.File
-                                    id="custom-file"
-                                    label={this.state.label}
-                                    onChange={this.setFilename}
-                                    custom
-                                />
-                                <Card className='card-spreadsheet'>
-                                    <Card.Header className='card-header'>TOTAL FACE VALUE</Card.Header>
-                                    <Card.Body style={{ textAlign: 'center' }}>
-                                        <Card.Title>${this.convertValues(this.state.totalDenomination)}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                                <Card className='card-spreadsheet card-margin-left'>
-                                    <Card.Header className='card-header'>TOTAL PRICE</Card.Header>
-                                    <Card.Body style={{ textAlign: 'center' }}>
-                                        <Card.Title id="card-price" style={{ color: 'red' }}>${this.convertValues(parseFloat(this.state.totalPrice).toFixed(2))}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                                <Card className='card-spreadsheet card-margin-left'>
-                                    <Card.Header className='card-header'>TOTAL INTEREST</Card.Header>
-                                    <Card.Body style={{ textAlign: 'center' }}>
-                                        <Card.Title id="card-interest" style={{ color: '#ff8c00' }}>${this.convertValues(parseFloat(this.state.totalInterest).toFixed(2))}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                                <Card className='card-spreadsheet card-margin-left'>
-                                    <Card.Header className='card-header'>TOTAL VALUE</Card.Header>
-                                    <Card.Body style={{ textAlign: 'center' }}>
-                                        <Card.Title id="card-value" style={{ color: 'green' }}>${this.convertValues(parseFloat(this.state.totalValue).toFixed(2))}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Form.Row>
-                    </Form>
-                    <div id="card-container" style={{ width: '100%', float: 'left', paddingTop: '1em' }}>
-                        {this.state.bonds.length > 0 ? <div onClick={this.exportOnClick} style={{ width: '100%', textAlign: 'right', marginBottom: '.25em' }}>
-                            <CSVLink filename={'bonds_valued_from_' + this.state.month + '_' + this.state.year} data={this.state.exportResults.length > 0 ? this.state.exportResults : ''}>+ [Export]</CSVLink>
-                        </div> : null}
-                    </div >
-                    <div style={{ width: '100%', float: 'left', margin: '0 0 1em 0' }}>
-                        {
-                            this.state.bonds.length > 0 ?
-                                <div>
-                                    <Table striped bordered hover id="bond-table" hidden={this.state.hideTable} onChange={this.state.changeTable} style={{ width: '100%', margin: 'auto' }}>
-                                        <thead style={{ textAlign: "center", fontSize: ".75em", textTransform: "uppercase" }}>
-                                            <tr>
-                                                <th>Serial Number</th>
-                                                <th>Series</th>
-                                                <th>Face Value</th>
-                                                <th>Issue Date</th>
-                                                <th>Next Accrual</th>
-                                                <th>Final Maturity</th>
-                                                <th>Issue Price</th>
-                                                <th>Interest</th>
-                                                <th>Value</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {this.state.bonds
-                                                .slice(this.state.currentPage * this.state.perPage, (this.state.currentPage + 1) * this.state.perPage)
-                                                .map((bond, i) => (
-                                                    <tr key={i}>
-                                                        <td>{bond['serialNumber']}</td>
-                                                        <td>{bond['series']}</td>
-                                                        <td>${this.convertValues(bond['denomination'])}</td>
-                                                        <td>{bond['iDate']}</td>
-                                                        <td>{bond['aDate']}</td>
-                                                        <td>{bond['mDate']}</td>
-                                                        <td>${this.convertValues(parseFloat(bond['iPrice']).toFixed(2))}</td>
-                                                        <td>${this.convertValues(parseFloat(bond['interest']).toFixed(2))}</td>
-                                                        <td style={{ position: 'relative' }}>
-                                                            ${this.convertValues(parseFloat(bond['value']).toFixed(2))}
-                                                            <button onClick={() => this.handleClickX(i)} className='close' style={{ position: 'absolute', top: '.5em', right: '-1em' }}>
-                                                                <span aria-hidden='true' style={{ border: 'none' }}>&times;</span>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                                        <Button type="button" size='sm' variant='success' onMouseEnter={this.onUpdateEnter} onClick={this.onUpdateClick} style={{ position: 'absolute', top: '0', right: '.5em', fontSize: '.55em', fontWeight: 'bold' }}>UPDATE</Button>
+                                    </OverlayTrigger>
+                                    <Card style={{ marginTop: '2em' }}>
+                                        <Card.Header className='card-header'>VALUED AS OF</Card.Header>
+                                        <Card.Body style={{ textAlign: 'center' }}>
+                                            <Card.Title>{this.state.totalDate}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Form.Row>
+                            <Form.Row>
+                                <Col style={{ marginLeft: '.5em', minWidth: '700px' }}>
+                                    <Form.Label>ATTACHMENT</Form.Label>
+                                    <Form.File
+                                        id="custom-file"
+                                        label={this.state.label}
+                                        onChange={this.setFilename}
+                                        custom
+                                    />
+                                    <Card className='card-spreadsheet'>
+                                        <Card.Header className='card-header'>TOTAL FACE VALUE</Card.Header>
+                                        <Card.Body style={{ textAlign: 'center' }}>
+                                            <Card.Title>${this.convertValues(this.state.totalDenomination)}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                    <Card className='card-spreadsheet card-margin-left'>
+                                        <Card.Header className='card-header'>TOTAL PRICE</Card.Header>
+                                        <Card.Body style={{ textAlign: 'center' }}>
+                                            <Card.Title id="card-price" style={{ color: 'red' }}>${this.convertValues(parseFloat(this.state.totalPrice).toFixed(2))}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                    <Card className='card-spreadsheet card-margin-left'>
+                                        <Card.Header className='card-header'>TOTAL INTEREST</Card.Header>
+                                        <Card.Body style={{ textAlign: 'center' }}>
+                                            <Card.Title id="card-interest" style={{ color: '#ff8c00' }}>${this.convertValues(parseFloat(this.state.totalInterest).toFixed(2))}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                    <Card className='card-spreadsheet card-margin-left'>
+                                        <Card.Header className='card-header'>TOTAL VALUE</Card.Header>
+                                        <Card.Body style={{ textAlign: 'center' }}>
+                                            <Card.Title id="card-value" style={{ color: 'green' }}>${this.convertValues(parseFloat(this.state.totalValue).toFixed(2))}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Form.Row>
+                        </Form>
+                        <div id="card-container" style={{ width: '100%', float: 'left', paddingTop: '1em' }}>
+                            {this.state.bonds.length > 0 ? <div onClick={this.exportOnClick} style={{ width: '100%', textAlign: 'right', marginBottom: '.25em' }}>
+                                <CSVLink filename={'bonds_valued_from_' + this.state.month + '_' + this.state.year} data={this.state.exportResults.length > 0 ? this.state.exportResults : ''}>+ [Export]</CSVLink>
+                            </div> : null}
+                        </div >
+                        <div style={{ width: '100%', float: 'left', margin: '0 0 1em 0' }}>
+                            {
+                                this.state.bonds.length > 0 ?
+                                    <div>
+                                        <Table striped bordered hover id="bond-table" hidden={this.state.hideTable} onChange={this.state.changeTable} style={{ width: '100%', margin: 'auto' }}>
+                                            <thead style={{ textAlign: "center", fontSize: ".75em", textTransform: "uppercase" }}>
+                                                <tr>
+                                                    <th>Serial Number</th>
+                                                    <th>Series</th>
+                                                    <th>Face Value</th>
+                                                    <th>Issue Date</th>
+                                                    <th>Next Accrual</th>
+                                                    <th>Final Maturity</th>
+                                                    <th>Issue Price</th>
+                                                    <th>Interest</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.state.bonds
+                                                    .slice(this.state.currentPage * this.state.perPage, (this.state.currentPage + 1) * this.state.perPage)
+                                                    .map((bond, i) => (
+                                                        <tr key={i}>
+                                                            <td>{bond['serialNumber']}</td>
+                                                            <td>{bond['series']}</td>
+                                                            <td>${this.convertValues(bond['denomination'])}</td>
+                                                            <td>{bond['iDate']}</td>
+                                                            <td>{bond['aDate']}</td>
+                                                            <td>{bond['mDate']}</td>
+                                                            <td>${this.convertValues(parseFloat(bond['iPrice']).toFixed(2))}</td>
+                                                            <td>${this.convertValues(parseFloat(bond['interest']).toFixed(2))}</td>
+                                                            <td style={{ position: 'relative' }}>
+                                                                ${this.convertValues(parseFloat(bond['value']).toFixed(2))}
+                                                                <button onClick={() => this.handleClickX(i)} className='close' style={{ position: 'absolute', top: '.5em', right: '-1em' }}>
+                                                                    <span aria-hidden='true' style={{ border: 'none' }}>&times;</span>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                            </tbody>
+                                        </Table>
+                                        {this.state.bonds.length > this.state.perPage ?
+                                            <Pagination size='sm'>
+                                                <Pagination.Prev onClick={this.setPrevPage} />
+                                                {this.state.pages.map((i) => (
+                                                    <Pagination.Item active={i === this.state.currentPage} key={i} onClick={() => this.setCurrentPage(i)}>{i + 1}</Pagination.Item>
                                                 ))}
-                                        </tbody>
-                                    </Table>
-                                    {this.state.bonds.length > this.state.perPage ?
-                                        <Pagination size='sm'>
-                                            <Pagination.Prev onClick={this.setPrevPage} />
-                                            {this.state.pages.map((i) => (
-                                                <Pagination.Item active={i === this.state.currentPage} key={i} onClick={() => this.setCurrentPage(i)}>{i + 1}</Pagination.Item>
-                                            ))}
-                                            <Pagination.Next onClick={this.setNextPage} />
-                                        </Pagination>
-                                        : null}
-                                </div>
-                                : null}
+                                                <Pagination.Next onClick={this.setNextPage} />
+                                            </Pagination>
+                                            : null}
+                                    </div>
+                                    : null}
 
+                        </div>
                     </div>
+                    <Helmet>
+                        <title>Bond Priceing - Spreadsheet</title>
+                        <meta name='Price Bonds By Spreadsheet' content='Price all your I,E, EE Bonds and Savings Notes using a predefined spreadsheet' />
+                        <link related='canonical' content='/bond_pricing_spreadsheet' />
+                    </Helmet>
                 </div>
-            </div >
+            </div>
         )
     }
 }

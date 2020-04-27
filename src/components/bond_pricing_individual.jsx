@@ -25,7 +25,8 @@ class BondPricingOne extends Component {
             perPage: 5,
             currentPage: 0,
             errorMessage: null,
-            denominationOptions: [50, 75, 100, 200, 500, 1000, 5000, 10000]
+            denominationOptions: [50, 75, 100, 200, 500, 1000, 5000, 10000],
+            containerStyle: null
         }
 
         this.onUpdateEnter = this.onUpdateEnter.bind(this)
@@ -40,7 +41,13 @@ class BondPricingOne extends Component {
     }
 
     componentDidMount() {
-        console.log(document.getElementsByClassName('card')[0].offsetWidth)
+        const pageWidth = document.documentElement.clientWidth
+        if (pageWidth < 1000) {
+            this.setState({ containerStyle: { width: '90%', margin: 'auto' } })
+        }
+        else {
+            this.setState({ containerStyle: { width: '75%', margin: 'auto' } })
+        }
     }
 
     handleError(series) {
@@ -323,186 +330,188 @@ class BondPricingOne extends Component {
                         {this.state.errorMessage}
                     </Alert>
                     : null}
-                <div style={{ width: '70%', minWidth: '850px', margin: 'auto', marginTop: '2rem' }}>
-                    <Form onSubmit={this.onSubmit} style={{ width: '100%', fontSize: '14px' }}>
-                        <Form.Row>
-                            <Col className="col-padding">
-                                <Form.Label>VALUE AS OF</Form.Label>
-                                <InputGroup>
-                                    <Form.Control
-                                        required
-                                        name="aMonth"
-                                        type="number"
-                                        placeholder="Month"
-                                        min="1"
-                                        max="12"
-                                        defaultValue={this.state.month}
-                                    />
-                                    <InputGroup.Append>
-                                        <InputGroup.Text id="inputGroupPrepend">/</InputGroup.Text>
-                                    </InputGroup.Append>
-                                    <Form.Control
-                                        required
-                                        name="aYear"
-                                        type="number"
-                                        placeholder="Year"
-                                        maxLength="4"
-                                        min="1992"
-                                        max={this.state.year}
-                                        style={{ marginLeft: '-1px' }}
-                                        defaultValue={this.state.year}
-                                    />
-                                </InputGroup>
-                                <OverlayTrigger placement='right' overlay={
-                                    <Tooltip style={this.state.showTooltip} >
-                                        Revalue all bonds by this date.
+                <div style={this.state.containerStyle ? this.state.containerStyle : { width: '75%', margin: 'auto' }}>
+                    <div style={{ width: '100%', marginTop: '2em' }}>
+                        <Form onSubmit={this.onSubmit} style={{ width: '100%', fontSize: '14px' }}>
+                            <Form.Row>
+                                <Col className="col-padding">
+                                    <Form.Label>VALUE AS OF</Form.Label>
+                                    <InputGroup>
+                                        <Form.Control
+                                            required
+                                            name="aMonth"
+                                            type="number"
+                                            placeholder="Month"
+                                            min="1"
+                                            max="12"
+                                            defaultValue={this.state.month}
+                                        />
+                                        <InputGroup.Append>
+                                            <InputGroup.Text id="inputGroupPrepend">/</InputGroup.Text>
+                                        </InputGroup.Append>
+                                        <Form.Control
+                                            required
+                                            name="aYear"
+                                            type="number"
+                                            placeholder="Year"
+                                            maxLength="4"
+                                            min="1992"
+                                            max={this.state.year}
+                                            style={{ marginLeft: '-1px' }}
+                                            defaultValue={this.state.year}
+                                        />
+                                    </InputGroup>
+                                    <OverlayTrigger placement='right' overlay={
+                                        <Tooltip style={this.state.showTooltip} >
+                                            Revalue all bonds by this date.
                                     </Tooltip>}>
-                                    <Button type="button" size='sm' variant='success' onMouseEnter={this.onUpdateEnter} onClick={this.onUpdateClick} style={{ position: 'absolute', top: '0', right: '.75em', fontSize: '.65em', fontWeight: 'bold' }}>UPDATE</Button>
-                                </OverlayTrigger>
-                                <Card className="card-margin-top">
-                                    <Card.Header className='card-header'>VALUED AS OF</Card.Header>
-                                    <Card.Body style={{ textAlign: 'center' }}>
-                                        <Card.Title>{this.state.totalDate}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col className="col-padding">
-                                <Form.Label>SERIES</Form.Label>
-                                <Form.Control onChange={() => this.onSeriesChange()} name="series" as="select" custom>
-                                    <option value="EE">EE Bond</option>
-                                    <option value="I">I Bond</option>
-                                    <option value="E">E Bond</option>
-                                    <option value="S">Savings Note</option>
-                                </Form.Control>
-                                <Card className="card-margin-top">
-                                    <Card.Header className='card-header'>TOTAL FACE VALUE</Card.Header>
-                                    <Card.Body style={{ textAlign: 'center' }}>
-                                        <Card.Title>${this.convertValues(this.state.totalDenomination)}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col className="col-padding">
-                                <Form.Label>DENOMINATION</Form.Label>
-                                <Form.Control name="denomination" as="select" custom>
-                                    {this.state.denominationOptions.map((opt) => (
-                                        <option key={opt} value={opt}>${this.convertValues(opt)}</option>
-                                    ))}
-                                </Form.Control>
-                                <Card className="card-margin-top">
-                                    <Card.Header className='card-header'>TOTAL PRICE</Card.Header>
-                                    <Card.Body style={{ textAlign: 'center' }}>
-                                        <Card.Title id="card-price" style={{ color: 'red' }}>${this.convertValues(parseFloat(this.state.totalPrice).toFixed(2))}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col className="col-padding">
-                                <Form.Label size='sm'>SERIAL NUMBER</Form.Label>
-                                <Form.Control
-                                    name="serialnumber"
-                                    type="text"
-                                    placeholder="Optional"
-                                />
-                                <Card className="card-margin-top">
-                                    <Card.Header className='card-header'>TOTAL INTEREST</Card.Header>
-                                    <Card.Body style={{ textAlign: 'center' }}>
-                                        <Card.Title id="card-interest" style={{ color: '#ff8c00' }}>${this.convertValues(parseFloat(this.state.totalInterest).toFixed(2))}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                            <Col className="col-padding">
-                                <Form.Label>ISSUE DATE</Form.Label>
-                                <InputGroup>
+                                        <Button type="button" size='sm' variant='success' onMouseEnter={this.onUpdateEnter} onClick={this.onUpdateClick} style={{ position: 'absolute', top: '0', right: '.75em', fontSize: '.65em', fontWeight: 'bold' }}>UPDATE</Button>
+                                    </OverlayTrigger>
+                                    <Card className="card-margin-top">
+                                        <Card.Header className='card-header'>VALUED AS OF</Card.Header>
+                                        <Card.Body style={{ textAlign: 'center' }}>
+                                            <Card.Title>{this.state.totalDate}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col className="col-padding">
+                                    <Form.Label>SERIES</Form.Label>
+                                    <Form.Control onChange={() => this.onSeriesChange()} name="series" as="select" custom>
+                                        <option value="EE">EE Bond</option>
+                                        <option value="I">I Bond</option>
+                                        <option value="E">E Bond</option>
+                                        <option value="S">Savings Note</option>
+                                    </Form.Control>
+                                    <Card className="card-margin-top">
+                                        <Card.Header className='card-header'>TOTAL FACE VALUE</Card.Header>
+                                        <Card.Body style={{ textAlign: 'center' }}>
+                                            <Card.Title>${this.convertValues(this.state.totalDenomination)}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col className="col-padding">
+                                    <Form.Label>DENOMINATION</Form.Label>
+                                    <Form.Control name="denomination" as="select" custom>
+                                        {this.state.denominationOptions.map((opt) => (
+                                            <option key={opt} value={opt}>${this.convertValues(opt)}</option>
+                                        ))}
+                                    </Form.Control>
+                                    <Card className="card-margin-top">
+                                        <Card.Header className='card-header'>TOTAL PRICE</Card.Header>
+                                        <Card.Body style={{ textAlign: 'center' }}>
+                                            <Card.Title id="card-price" style={{ color: 'red' }}>${this.convertValues(parseFloat(this.state.totalPrice).toFixed(2))}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col className="col-padding">
+                                    <Form.Label size='sm'>SERIAL NUMBER</Form.Label>
                                     <Form.Control
-                                        required
-                                        name="iMonth"
-                                        type="number"
-                                        placeholder="Month"
-                                        maxLength="2"
-                                        min="1"
-                                        max="12"
-                                        className={this.state.errorMessage ? 'highlight' : null}
+                                        name="serialnumber"
+                                        type="text"
+                                        placeholder="Optional"
                                     />
-                                    <InputGroup.Append>
-                                        <InputGroup.Text id="inputGroupPrepend">/</InputGroup.Text>
-                                    </InputGroup.Append>
-                                    <Form.Control
-                                        required
-                                        name="iYear"
-                                        type="number"
-                                        placeholder="Year"
-                                        maxLength="4"
-                                        max={this.state.year}
-                                        style={{ marginLeft: '-1px' }}
-                                        className={this.state.errorMessage ? 'highlight' : null}
-                                    />
-                                </InputGroup>
-                                <Button type="submit" size='sm' style={{ position: 'absolute', top: '0', right: '.5em', fontSize: '.65em', fontWeight: 'bold' }}>SUBMIT</Button>
-                                <Card className="card-margin-top">
-                                    <Card.Header className='card-header'>TOTAL VALUE</Card.Header>
-                                    <Card.Body style={{ textAlign: 'center' }}>
-                                        <Card.Title id="card-value" style={{ color: 'green' }}>${this.convertValues(parseFloat(this.state.totalValue).toFixed(2))}</Card.Title>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Form.Row>
-                    </Form >
-                    <div id="card-container" style={{ width: '100%', float: 'left', paddingTop: '1em' }}>
-                        {this.state.bonds.length > 0 ? <div onClick={this.exportOnClick} style={{ width: '100%', textAlign: 'right', marginBottom: '.25em' }}>
-                            <CSVLink filename={'bonds_valued_from_' + this.state.month + '_' + this.state.year} data={this.state.exportResults.length > 0 ? this.state.exportResults : ''}>Export</CSVLink>
-                        </div> : null}
-                    </div >
-                    <div style={{ width: '100%', float: 'left', margin: '0 0 1em 0' }}>
-                        {
-                            this.state.bonds.length > 0 ?
-                                <div>
-                                    <Table striped bordered hover id="bond-table" hidden={this.state.hideTable} onChange={this.state.changeTable} style={{ width: '100%', margin: 'auto' }}>
-                                        <thead style={{ textAlign: "center", fontSize: ".75em", textTransform: "uppercase" }}>
-                                            <tr>
-                                                <th>Serial #</th>
-                                                <th>Series</th>
-                                                <th>Face Value</th>
-                                                <th>Issue Date</th>
-                                                <th>Next Accrual</th>
-                                                <th>Final Maturity</th>
-                                                <th>Issue Price</th>
-                                                <th>Interest</th>
-                                                <th>Value</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {this.state.bonds
-                                                .slice(this.state.currentPage * this.state.perPage, (this.state.currentPage + 1) * this.state.perPage)
-                                                .map((bond, i) => (
-                                                    <tr key={i}>
-                                                        <td>{bond['serialNumber']}</td>
-                                                        <td>{bond['series']}</td>
-                                                        <td>${this.convertValues(bond['denomination'])}</td>
-                                                        <td>{bond['iDate']}</td>
-                                                        <td>{bond['aDate']}</td>
-                                                        <td>{bond['mDate']}</td>
-                                                        <td>${this.convertValues(parseFloat(bond['iPrice']).toFixed(2))}</td>
-                                                        <td>${this.convertValues(parseFloat(bond['interest']).toFixed(2))}</td>
-                                                        <td style={{ position: 'relative' }}>
-                                                            ${this.convertValues(parseFloat(bond['value']).toFixed(2))}
-                                                            <button onClick={() => this.handleClickX(i)} className='close' style={{ position: 'absolute', top: '.5em', right: '-1em' }}>
-                                                                <span aria-hidden='true' style={{ border: 'none' }}>&times;</span>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                                    <Card className="card-margin-top">
+                                        <Card.Header className='card-header'>TOTAL INTEREST</Card.Header>
+                                        <Card.Body style={{ textAlign: 'center' }}>
+                                            <Card.Title id="card-interest" style={{ color: '#ff8c00' }}>${this.convertValues(parseFloat(this.state.totalInterest).toFixed(2))}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col className="col-padding">
+                                    <Form.Label>ISSUE DATE</Form.Label>
+                                    <InputGroup>
+                                        <Form.Control
+                                            required
+                                            name="iMonth"
+                                            type="number"
+                                            placeholder="Month"
+                                            maxLength="2"
+                                            min="1"
+                                            max="12"
+                                            className={this.state.errorMessage ? 'highlight' : null}
+                                        />
+                                        <InputGroup.Append>
+                                            <InputGroup.Text id="inputGroupPrepend">/</InputGroup.Text>
+                                        </InputGroup.Append>
+                                        <Form.Control
+                                            required
+                                            name="iYear"
+                                            type="number"
+                                            placeholder="Year"
+                                            maxLength="4"
+                                            max={this.state.year}
+                                            style={{ marginLeft: '-1px' }}
+                                            className={this.state.errorMessage ? 'highlight' : null}
+                                        />
+                                    </InputGroup>
+                                    <Button type="submit" size='sm' style={{ position: 'absolute', top: '0', right: '.5em', fontSize: '.65em', fontWeight: 'bold' }}>SUBMIT</Button>
+                                    <Card className="card-margin-top">
+                                        <Card.Header className='card-header'>TOTAL VALUE</Card.Header>
+                                        <Card.Body style={{ textAlign: 'center' }}>
+                                            <Card.Title id="card-value" style={{ color: 'green' }}>${this.convertValues(parseFloat(this.state.totalValue).toFixed(2))}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Form.Row>
+                        </Form >
+                        <div id="card-container" style={{ width: '100%', float: 'left', paddingTop: '1em' }}>
+                            {this.state.bonds.length > 0 ? <div onClick={this.exportOnClick} style={{ width: '100%', textAlign: 'right', marginBottom: '.25em' }}>
+                                <CSVLink filename={'bonds_valued_from_' + this.state.month + '_' + this.state.year} data={this.state.exportResults.length > 0 ? this.state.exportResults : ''}>Export</CSVLink>
+                            </div> : null}
+                        </div >
+                        <div style={{ width: '100%', float: 'left', margin: '0 0 1em 0' }}>
+                            {
+                                this.state.bonds.length > 0 ?
+                                    <div>
+                                        <Table striped bordered hover id="bond-table" hidden={this.state.hideTable} onChange={this.state.changeTable} style={{ width: '100%', margin: 'auto' }}>
+                                            <thead style={{ textAlign: "center", fontSize: ".75em", textTransform: "uppercase" }}>
+                                                <tr>
+                                                    <th>Serial #</th>
+                                                    <th>Series</th>
+                                                    <th>Face Value</th>
+                                                    <th>Issue Date</th>
+                                                    <th>Next Accrual</th>
+                                                    <th>Final Maturity</th>
+                                                    <th>Issue Price</th>
+                                                    <th>Interest</th>
+                                                    <th>Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.state.bonds
+                                                    .slice(this.state.currentPage * this.state.perPage, (this.state.currentPage + 1) * this.state.perPage)
+                                                    .map((bond, i) => (
+                                                        <tr key={i}>
+                                                            <td>{bond['serialNumber']}</td>
+                                                            <td>{bond['series']}</td>
+                                                            <td>${this.convertValues(bond['denomination'])}</td>
+                                                            <td>{bond['iDate']}</td>
+                                                            <td>{bond['aDate']}</td>
+                                                            <td>{bond['mDate']}</td>
+                                                            <td>${this.convertValues(parseFloat(bond['iPrice']).toFixed(2))}</td>
+                                                            <td>${this.convertValues(parseFloat(bond['interest']).toFixed(2))}</td>
+                                                            <td style={{ position: 'relative' }}>
+                                                                ${this.convertValues(parseFloat(bond['value']).toFixed(2))}
+                                                                <button onClick={() => this.handleClickX(i)} className='close' style={{ position: 'absolute', top: '.5em', right: '-1em' }}>
+                                                                    <span aria-hidden='true' style={{ border: 'none' }}>&times;</span>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                            </tbody>
+                                        </Table>
+                                        {this.state.bonds.length > this.state.perPage ?
+                                            <Pagination size='sm'>
+                                                <Pagination.Prev onClick={this.setPrevPage} />
+                                                {this.state.pages.map((i) => (
+                                                    <Pagination.Item active={i === this.state.currentPage} key={i} onClick={() => this.setCurrentPage(i)}>{i + 1}</Pagination.Item>
                                                 ))}
-                                        </tbody>
-                                    </Table>
-                                    {this.state.bonds.length > this.state.perPage ?
-                                        <Pagination size='sm'>
-                                            <Pagination.Prev onClick={this.setPrevPage} />
-                                            {this.state.pages.map((i) => (
-                                                <Pagination.Item active={i === this.state.currentPage} key={i} onClick={() => this.setCurrentPage(i)}>{i + 1}</Pagination.Item>
-                                            ))}
-                                            <Pagination.Next onClick={this.setNextPage} />
-                                        </Pagination>
-                                        : null}
-                                </div>
-                                : null}
+                                                <Pagination.Next onClick={this.setNextPage} />
+                                            </Pagination>
+                                            : null}
+                                    </div>
+                                    : null}
+                        </div>
                     </div>
                 </div>
             </React.Fragment>
