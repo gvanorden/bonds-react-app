@@ -29,7 +29,6 @@ class Navigation extends Component {
                         /></Navbar.Brand>
                     <Nav.Link href="/" style={{ fontSize: '14px', fontWeight: 'bold' }}>HOME</Nav.Link>
                     <Nav.Link href="/instructions" style={{ fontSize: '14px', fontWeight: 'bold' }}>INSTRUCTIONS</Nav.Link>
-                    {/*<Nav.Link href="/bond_example" style={{ fontSize: '14px', fontWeight: 'bold' }}>BOND EXAMPLE</Nav.Link>*/}
                     <NavDropdown title="BOND PRICING" id="basic-nav-dropdown" style={{ fontSize: '14px', fontWeight: 'bold' }}>
                         <NavDropdown.Item href="/bond_pricing_individual" style={{ fontSize: '14px', color: '#2a3132' }}>INDIVIDUAL</NavDropdown.Item>
                         <NavDropdown.Divider />
@@ -39,7 +38,6 @@ class Navigation extends Component {
                 <Switch>
                     <Route exact path='/' component={HomePage} />
                     <Route exact path='/instructions' component={Instruction} />
-                    {/*<Route exact path='/bond_example' component={BondExample} />*/}
                     <Route exact path='/bond_pricing_individual' component={BondPricingOne} />
                     <Route exact path='/bond_pricing_spreadsheet' component={BondPricingTwo} />
                 </Switch>

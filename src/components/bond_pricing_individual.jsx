@@ -209,7 +209,7 @@ class BondPricingOne extends Component {
             body: JSON.stringify({ bonds })
         };
 
-        fetch('http://localhost:5000/update', requestOptions)
+        fetch('https://secure.thesavingsbondwizard.com/update', requestOptions)
             .then(response => response.json())
             .then(response => {
                 if (response[0] !== 'error') {
@@ -255,7 +255,7 @@ class BondPricingOne extends Component {
             body: JSON.stringify({ bonds })
         };
 
-        fetch('http://ec2-18-224-27-178.us-east-2.compute.amazonaws.com:5000/update', requestOptions)
+        fetch('https://secure.thesavingsbondwizard.com/update', requestOptions)
             .then(response => response.json())
             .then(response => {
                 try {

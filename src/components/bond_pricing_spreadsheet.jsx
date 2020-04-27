@@ -194,7 +194,7 @@ class BondPricingTwo extends Component {
             body: JSON.stringify({ bonds })
         };
 
-        fetch('http://localhost:5000/update', requestOptions)
+        fetch('https://secure.thesavingsbondwizard.com/update', requestOptions)
             .then(response => response.json())
             .then(response => {
                 if (response[0] !== 'error') {
@@ -256,7 +256,7 @@ class BondPricingTwo extends Component {
                     body: JSON.stringify({ bonds })
                 };
 
-                fetch('http://localhost:5000/update', requestOptions)
+                fetch('https://secure.thesavingsbondwizard.com/update', requestOptions)
                     .then(response => response.json())
                     .then(response => {
                         this.setState({ bonds: response[0] })
