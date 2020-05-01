@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+.instruct-container {
+    width:50%;
+    margin:2rem auto;
+}
+
+.instruct-container-tablet {
+    width:75%;
+    margin:2rem auto;
+}
+
+.instruct-container-mobile, .instruct-container-mobile-sm {
+    width:100%;
+    margin:1rem auto;
+    padding:0 1rem;
+}
+
+.bond-anatomy, .bond-anatomy-tablet, .bond-anatomy-mobile {
+    width:75%;
+    margin:1rem auto;
+}
+
+.bond-anatomy-mobile-sm {
+    width:100%;
+    margin:1rem auto;
+}
+
+.instruct-header, .instruct-header-mobile, .instruct-header-tablet {
+    font-size:1.25rem !important;
+}
+
+.instruct-header-mobile-sm {
+    font-size:1rem !important;
+}

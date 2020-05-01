@@ -8,7 +8,7 @@ class HomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            windowWidth: window.outerWidth,
+            windowWidth: null,
             windowHeight: null
         };
 
@@ -31,13 +31,13 @@ class HomePage extends Component {
     }
 
     setClass(name) {
-        const { windowHeight, windowWidth } = this.state
+        const { windowWidth } = this.state
 
         if (isMobile) {
             if (windowWidth < 450) {
                 return name + '-mobile-sm'
             }
-            else if (isMobile && ((windowHeight > windowWidth) || (windowWidth <= 1024))) {
+            else if (windowWidth < 1024) {
                 return name + '-mobile'
             }
             else {
@@ -53,10 +53,13 @@ class HomePage extends Component {
         const { windowWidth } = this.state
 
         if (isMobile) {
-            if (windowWidth < 500) {
-                return { backgroundSize: '375%' }
+            if (windowWidth < 350) {
+                return { backgroundSize: '400%' }
             }
-            else if (windowWidth <= 1024) {
+            if (windowWidth < 420) {
+                return { backgroundSize: '325%' }
+            }
+            else if (windowWidth < 1024) {
                 return { backgroundSize: '175%' }
             }
             else if (windowWidth < 1224) {
@@ -75,7 +78,7 @@ class HomePage extends Component {
         const { setClass } = this
 
         return (
-            <React.Fragment>
+            <div>
                 <Jumbotron className={setClass('home-jumbotron')} style={this.setBkgdSize()}>
                     <h1>Quickly and easily price your savings bonds!</h1>
                     <h2 style={{ fontSize: '1rem' }}>Value, Aggregate, and Export any set of I, E, EE Series Bonds or Savings Notes.</h2>
@@ -125,7 +128,7 @@ class HomePage extends Component {
                         </Card.Body>
                     </Card>
                 </div>
-            </React.Fragment >
+            </div>
         )
     }
 }
