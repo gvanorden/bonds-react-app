@@ -10,8 +10,8 @@ class Instructions extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            windowWidth: null,
-            windowHeight: null
+            windowWidth: window.outerWidth,
+            windowHeight: window.outerHeight
         };
 
         this.handleResize = this.handleResize.bind(this)
@@ -35,16 +35,14 @@ class Instructions extends Component {
     setClass(name) {
         const { windowWidth } = this.state
 
-        if (isMobile) {
-            if (windowWidth < 450) {
-                return name + '-mobile-sm'
-            }
-            else if (windowWidth <= 1024) {
-                return name + '-mobile'
-            }
-            else {
-                return name + '-tablet'
-            }
+        if (windowWidth <= 450) {
+            return name + '-mobile-sm'
+        }
+        else if (windowWidth <= 1024) {
+            return name + '-mobile'
+        }
+        else if (windowWidth <= 1375) {
+            return name + '-tablet'
         }
         else {
             return name
@@ -81,9 +79,9 @@ class Instructions extends Component {
         const exportData = [['Serial Number', 'Series', 'Denomination', 'Issue Date [Mo/Yr]']]
 
         return (
-            <div>
+            <div style={{ maxWidth: this.state.windowWidth }}>
                 <div className="jumbotron-pages"></div>
-                <div className={setClass('instruct-container')} style={{ maxWidth: this.state.windowWidth }}>
+                <div className={setClass('instruct-container')}>
                     <h5 className={setClass('instruct-header')}>BOND ANATOMY</h5>
                     <div className={setClass('bond-anatomy')}>
                         <Image width='100%' src={Bond} alt="Savings Bond Anatomy"></Image>

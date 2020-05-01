@@ -8,8 +8,8 @@ class HomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            windowWidth: null,
-            windowHeight: null
+            windowWidth: window.outerWidth,
+            windowHeight: window.outerHeight
         };
 
         this.handleResize = this.handleResize.bind(this)
@@ -33,21 +33,20 @@ class HomePage extends Component {
     setClass(name) {
         const { windowWidth } = this.state
 
-        if (isMobile) {
-            if (windowWidth < 450) {
-                return name + '-mobile-sm'
-            }
-            else if (windowWidth < 1024) {
-                return name + '-mobile'
-            }
-            else {
-                return name + '-tablet'
-            }
+        if (windowWidth < 450) {
+            return name + '-mobile-sm'
+        }
+        else if (windowWidth <= 1024) {
+            return name + '-mobile'
+        }
+        else if (windowWidth <= 1375) {
+            return name + '-tablet'
         }
         else {
             return name
         }
     }
+
 
     setBkgdSize() {
         const { windowWidth } = this.state
@@ -78,7 +77,7 @@ class HomePage extends Component {
         const { setClass } = this
 
         return (
-            <div>
+            <div style={{ maxWidth: this.state.windowWidth }}>
                 <Jumbotron className={setClass('home-jumbotron')} style={this.setBkgdSize()}>
                     <h1>Quickly and easily price your savings bonds!</h1>
                     <h2 style={{ fontSize: '1rem' }}>Value, Aggregate, and Export any set of I, E, EE Series Bonds or Savings Notes.</h2>
@@ -90,7 +89,7 @@ class HomePage extends Component {
                         </ListGroup>
                     </div>
                 </Jumbotron >
-                <div className={setClass('home-container')} style={{ maxWidth: this.state.windowWidth }}>
+                <div className={setClass('home-container')}>
                     <Card className={setClass('home-card')}>
                         <Card.Header className={'home-card-header'}>HOW WE DO IT</Card.Header>
                         <Card.Body className={'home-card-body'}>
