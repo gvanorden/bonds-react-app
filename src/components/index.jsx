@@ -8,7 +8,7 @@ class HomePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            windowWidth: null,
+            windowWidth: window.outerWidth,
             windowHeight: null
         };
 

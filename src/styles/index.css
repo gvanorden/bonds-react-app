@@ -38,13 +38,7 @@ body {
     margin-bottom:2rem !important;
 }
 
-.home-container-tablet {
-    width:75%;
-    margin:auto !important;
-    margin-bottom:2rem !important;
-}
-
-.home-container-mobile, .home-container-mobile-sm {
+.home-container-mobile, .home-container-mobile-sm, .home-container-tablet {
     width:100%;
     padding: 0 1rem !important;
     margin-bottom:2rem !important;
