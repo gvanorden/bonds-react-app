@@ -77,7 +77,7 @@ class HomePage extends Component {
         const { setClass } = this
 
         return (
-            <div style={{ maxWidth: this.state.windowWidth }}>
+            <div>
                 <Jumbotron className={setClass('home-jumbotron')} style={this.setBkgdSize()}>
                     <h1>Quickly and easily price your savings bonds!</h1>
                     <h2 style={{ fontSize: '1rem' }}>Value, Aggregate, and Export any set of I, E, EE Series Bonds or Savings Notes.</h2>

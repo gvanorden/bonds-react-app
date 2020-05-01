@@ -79,7 +79,7 @@ class Instructions extends Component {
         const exportData = [['Serial Number', 'Series', 'Denomination', 'Issue Date [Mo/Yr]']]
 
         return (
-            <div style={{ maxWidth: this.state.windowWidth }}>
+            <div>
                 <div className="jumbotron-pages"></div>
                 <div className={setClass('instruct-container')}>
                     <h5 className={setClass('instruct-header')}>BOND ANATOMY</h5>
