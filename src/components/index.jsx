@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { isMobile } from "react-device-detect";
 import { Jumbotron, ListGroup, Card } from 'react-bootstrap';
 import TDirectLogo from '../images/treasury-direct.png';
 import '../styles/index.css'
@@ -14,7 +13,6 @@ class HomePage extends Component {
 
         this.handleResize = this.handleResize.bind(this)
         this.setClass = this.setClass.bind(this)
-        this.setBkgdSize = this.setBkgdSize.bind(this)
     }
 
     componentDidMount() {
@@ -36,40 +34,14 @@ class HomePage extends Component {
         if (windowWidth < 450) {
             return name + '-mobile-sm'
         }
-        else if (windowWidth <= 1024) {
+        else if (windowWidth < 1024) {
             return name + '-mobile'
         }
-        else if (windowWidth <= 1375) {
+        else if (windowWidth < 1400) {
             return name + '-tablet'
         }
         else {
             return name
-        }
-    }
-
-
-    setBkgdSize() {
-        const { windowWidth } = this.state
-
-        if (isMobile) {
-            if (windowWidth < 350) {
-                return { backgroundSize: '400%' }
-            }
-            if (windowWidth < 420) {
-                return { backgroundSize: '325%' }
-            }
-            else if (windowWidth < 1024) {
-                return { backgroundSize: '175%' }
-            }
-            else if (windowWidth < 1224) {
-                return { backgroundSize: '150%' }
-            }
-            else {
-                return { backgroundSize: '125%' }
-            }
-        }
-        else {
-            return { backgroundSize: '125%' }
         }
     }
 
@@ -78,7 +50,7 @@ class HomePage extends Component {
 
         return (
             <div>
-                <Jumbotron className={setClass('home-jumbotron')} style={this.setBkgdSize()}>
+                <Jumbotron className={setClass('home-jumbotron')}>
                     <h1>Quickly and easily price your savings bonds!</h1>
                     <h2 style={{ fontSize: '1rem' }}>Value, Aggregate, and Export any set of I, E, EE Series Bonds or Savings Notes.</h2>
                     <div style={{ marginTop: '3rem' }}>

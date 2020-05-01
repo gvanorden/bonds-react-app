@@ -16,12 +16,25 @@ body {
     border-bottom:1px solid #d3d3d3;
 }
 
-.home-jumbotron, .home-jumbotron-tablet, .home-jumbotron-mobile {
-    padding:6rem 4rem 3.5rem !important;
+.home-jumbotron, .home-jumbotron-mobile, .home-jumbotron-tablet {
+    padding:6rem 3.5rem 4rem 3.5rem !important;
+}
+
+.home-jumbotron {
+    background-size:125% !important;
+}
+
+.home-jumbotron-mobile {
+    background-size:175% !important;
+}
+
+.home-jumbotron-tablet {
+    background-size:140% !important;
 }
 
 .home-jumbotron-mobile-sm {
     padding:6rem 2rem 4rem 2rem !important;
+    background-size:325% !important;
 }
 
 .home-jumbotron h1, .home-jumbotron-table h1 {
