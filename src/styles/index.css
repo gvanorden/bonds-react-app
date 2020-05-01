@@ -12,7 +12,6 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     background-image: url('/images/homepage-image.jpg') !important;
-    background-size:cover !important;
     background-repeat: no-repeat;
     border-bottom:1px solid #d3d3d3;
 }
@@ -22,20 +21,20 @@ body {
 }
 
 .home-jumbotron {
-    background-size:125%
+    background-size:125% !important;
 }
 
 .home-jumbotron-mobile {
-    background-size:175%;
+    background-size:175% !important;
 }
 
 .home-jumbotron-tablet {
-    background-size:140%;
+    background-size:140% !important;
 }
 
 .home-jumbotron-mobile-sm {
     padding:6rem 2rem 4rem 2rem !important;
-    background-size:325%;
+    background-size:325% !important;
 }
 
 .home-jumbotron h1, .home-jumbotron-table h1 {
