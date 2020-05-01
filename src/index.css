@@ -1,5 +1,4 @@
 body {
-  min-width:1150px;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -15,12 +14,7 @@ code {
 
 input,
 input::-webkit-input-placeholder {
-    font-size: .85em;
-    line-height: 3;
-}
-
-.margin-auto {
-  margin:auto !important;
+    line-height: 1rem;
 }
 
 .nav-link {
@@ -37,6 +31,7 @@ input::-webkit-input-placeholder {
 .wyn-list-item {
   padding:0 !important;
   border:none !important;
+  white-space:nowrap !important;
 }
 
 .wyn-seperator{
@@ -45,14 +40,28 @@ input::-webkit-input-placeholder {
   line-height:.85em;
   font-size:1.5em;
   font-weight:bold;
+  white-space:nowrap !important;
 }
 
 .wyn-text {
   float:left;
   margin:0;
+  white-space:nowrap !important;
 }
 
-.close:focus,.close:active {
+.close {
+  position: absolute;
+  top: .75rem;
+  right: -1.25rem;
+}
+
+.close-mobile{
+  position: absolute;
+  top:.1rem;
+  right:-1.25rem;
+}
+
+.close:focus, .close:active, .close-mobile:focus,.close-mobile:active  {
   outline: none !important;
 }
 
@@ -62,22 +71,6 @@ input::-webkit-input-placeholder {
 
 .card-margin-top {
   margin-top:2.5em !important;
-}
-
-.card-header {
-  padding:.5em;
-  font-size:.75em;
-  font-weight:bold;
-}
-
-.card-spreadsheet {
-  float:left;
-  width:23.65%;
-  margin-top:2em;
-}
-
-.card-margin-left {
-  margin-left:1.8%;
 }
 
 .alert {
@@ -96,16 +89,7 @@ input::-webkit-input-placeholder {
   background:#fff3cd !important;
 }
 
-.jumbotron {
-  padding:7rem 0 4rem 5rem !important;
-  background-image: url('/images/homepage-image.jpg') !important;
-	background-size: cover;
-  background-repeat: no-repeat;
-  border-bottom:1px solid #d3d3d3;
-}
-
-.jumbotron-pages {
-  height:4rem;
+.jumbotron-pages, .jumbotron-pages-mobile {
   width:100%;
   padding:0 !important;
   background-image: url('/images/homepage-image.jpg') !important;
@@ -114,7 +98,173 @@ input::-webkit-input-placeholder {
   border-bottom:1px solid #d3d3d3;
 }
 
-.roboto {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+.jumbotron-pages {
+  height:4rem;
+}
+
+.jumbotron-pages-mobile {
+  height:3rem;
+}
+
+#wrapper{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+
+.outer{
+    display:table;
+    table-layout:fixed;
+    height:100%;
+    width:100%;
+}
+
+.inner{
+    display:table-cell;
+    text-align:center;
+    width:100%;
+    position:relative;
+}
+
+.content {
+  width:90%;
+  height:90%;
+  display:inline-block;
+  margin:auto;
+}
+
+.flip-arrows {
+  width:5rem !important;
+  animation:rotation 2s infinite linear;
+  -webkit-animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+      -webkit-transform: rotate(0deg);
+  }
+  to {
+      -webkit-transform: rotate(359deg);
+  }
+}
+
+.input-mobile-date {
+  height:2rem !important;
+  line-height:1rem !important;
+  padding:0 !important;
+  font-size: .85rem !important;
+  text-align:center !important;
+}
+
+.mobile-link {
+  padding:.5rem !important;
+  font-size:.65rem !important;
+  font-weight:bold !important;
+}
+
+.mobile-dropdown > a.dropdown-toggle.nav-link {
+  padding:.5rem !important;
+}
+
+.form-button, .form-button-mobile {
+  position:absolute;
+  font-weight:500 !important;
+  
+}
+
+.form-button {
+  top:0;
+  right:.3rem;
+  font-size:.75rem !important;
+  padding:.2rem !important;
+}
+
+.form-button-mobile {
+  top:.25rem;
+  right:.3rem;
+  font-size:.25rem !important;
+  padding:.1rem !important;
+}
+
+.form-label {
+  font-size:1rem !important;
+}
+
+.form-label-mobile {
+  font-size:.7rem !important;
+}
+
+.input-mobile {
+  height: 2rem !important;
+  line-height: 1rem !important;
+  font-size:.85rem !important;
+}
+
+.card-title {
+  font-size:1.55rem !important;
+}
+
+.card-title-mobile {
+  margin-bottom: 0 !important;
+  font-size:1rem !important;
+}
+
+.card-title-mobile-date {
+  padding:.75rem .5rem;
+}
+
+.card-header, .card-header-mobile {
+  padding:.5rem;
+  font-weight:bold;
+}
+
+.card-header {
+  font-size:.95rem !important;
+}
+
+.card-header-mobile {
+  padding:.25rem .5rem !important;
+  font-size:.5rem !important;
+}
+
+.card-body, .card-body-mobile {
+  text-align:center;
+}
+
+.card-body-mobile {
+  padding: .5rem !important;
+}
+
+.custom-mobile-input > label{
+  font-size:.75rem !important;
+}
+
+.table-header, .table-header-mobile { 
+  text-align: center !important;
+  text-transform: uppercase !important;
+}
+
+.table-header{
+  white-space: nowrap !important;
+  font-size:.9rem !important;
+}
+
+.table-row {
+  font-size:1.25rem !important;
+}
+
+.table-header-mobile {
+  font-size:.55rem !important;
+}
+
+.table-row-mobile {
+  font-size:.75rem !important;
+}
+
+.pagination-item-mobile > span, .pagination-item-mobile > a  {
+  line-height: .5 !important;
+  padding:.5rem !important;
+  font-size:.9rem !important;
 }
