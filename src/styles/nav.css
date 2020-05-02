@@ -15,7 +15,7 @@ body {
 }
 
 .nav-background {
-    background-image: url('/images/homepage-image.jpg');
+    background-image: url('/images/homepage-image.png');
     background-size:cover;
     background-repeat: no-repeat;
     border-bottom:1px solid #d3d3d3;

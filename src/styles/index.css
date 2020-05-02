@@ -1,7 +1,7 @@
 .home-jumbotron, .home-jumbotron-tablet, .home-jumbotron-mobile, .home-jumbotron-mobile-sm {
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    background-image: url('/images/homepage-image.jpg');
+    background-image: url('/images/homepage-image.png');
     background-repeat: no-repeat;
     border-bottom:1px solid #d3d3d3;
     z-index:-1;
