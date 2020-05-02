@@ -268,6 +268,7 @@ class IndividualBonds extends Component {
                 {this.state.windowWidth < 500 ?
                     <BondFlip /> :
                     <React.Fragment>
+                        <div>{this.state.windowWidth}</div>
                         <Form onSubmit={this.onSubmit}>
                             <Form.Row>
                                 <Col>
@@ -310,7 +311,7 @@ class IndividualBonds extends Component {
                                             onMouseEnter={this.onUpdateEnter}
                                             onClick={this.onUpdateClick}>
                                             UPDATE
-                        </Button>
+                                        </Button>
                                     </OverlayTrigger>
                                 </Col>
                                 <Col>

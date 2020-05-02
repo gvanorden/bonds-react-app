@@ -317,7 +317,6 @@ class BondPricingTwo extends Component {
 
         return (
             <React.Fragment>
-                <div className="jumbotron-pages"></div>
                 {isMobile && (windowWidth < 500 || windowWidth < windowHeight) ?
                     <div style={{ marginTop: '3rem', width: windowWidth, textAlign: 'center' }}>
                         <p style={{ fontWeight: 'bold' }}>This app feature requires a wide screen view.</p>

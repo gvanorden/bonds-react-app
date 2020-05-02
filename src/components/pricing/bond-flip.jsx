@@ -6,6 +6,7 @@ class BondFlip extends Component {
     render() {
         return (
             <div style={{ marginTop: '3rem', width: '100%', textAlign: 'center' }}>
+                <div>{window.outerWidth}</div>
                 <p style={{ fontWeight: 'bold' }}>This app feature requires a wide screen view.</p>
                 <img className="flip-arrows" style={{ marginTop: '1rem' }} src={arrows} alt='Flip arrows for app view'></img>
             </div>
