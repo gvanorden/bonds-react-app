@@ -40,7 +40,12 @@ class IndividualBonds extends Component {
     componentDidMount() {
         window.addEventListener("resize", this.handleResize);
 
-        this.setState({ windowWidth: window.outerWidth, windowHeight: window.outerHeight })
+        if (window.outWidth > 0 && window.outerHeight > 0) {
+            this.setState({ windowWidth: window.outerWidth, windowHeight: window.outerHeight })
+        }
+        else {
+            this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight })
+        }
     }
 
     handleResize() {
@@ -270,7 +275,6 @@ class IndividualBonds extends Component {
                 {this.state.windowWidth < 500 ?
                     <BondFlip /> :
                     <React.Fragment>
-                        <div>{this.state.windowWidth}</div>
                         <Form onSubmit={this.onSubmit}>
                             <Form.Row>
                                 <Col>

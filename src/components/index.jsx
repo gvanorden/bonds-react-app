@@ -18,7 +18,12 @@ class HomePage extends Component {
     componentDidMount() {
         window.addEventListener("resize", this.handleResize);
 
-        this.setState({ windowHeight: window.outerHeight, windowWidth: window.outerWidth })
+        if (window.outWidth > 0 && window.outerHeight > 0) {
+            this.setState({ windowWidth: window.outerWidth, windowHeight: window.outerHeight })
+        }
+        else {
+            this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight })
+        }
     }
 
     handleResize() {
