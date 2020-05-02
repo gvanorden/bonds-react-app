@@ -21,8 +21,8 @@ class IndividualBonds extends Component {
             currentYear: this.getCurrentYear(),
             denominationOptions: [50, 75, 100, 200, 500, 1000, 5000, 10000],
             showTooltip: { visibility: 'visible' },
-            windowWidth: window.outerWidth,
-            windowHeight: window.outerHeight,
+            windowWidth: null,
+            windowHeight: null,
             hiddenTable: true,
             errorMessage: null,
             pages: [],
@@ -39,6 +39,8 @@ class IndividualBonds extends Component {
 
     componentDidMount() {
         window.addEventListener("resize", this.handleResize);
+
+        this.setState({ windowWidth: window.outerWidth, windowHeight: window.outerHeight })
     }
 
     handleResize() {
