@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { isMobile } from "react-device-detect";
 import { Row, Col, Image } from 'react-bootstrap';
 import { CSVLink } from "react-csv";
 import csvExample from '../images/csv-example.png';
@@ -16,7 +15,6 @@ class Instructions extends Component {
 
         this.handleResize = this.handleResize.bind(this)
         this.setClass = this.setClass.bind(this)
-        this.setBkgdSize = this.setBkgdSize.bind(this)
     }
 
     componentDidMount() {
@@ -49,44 +47,16 @@ class Instructions extends Component {
         }
     }
 
-    setBkgdSize() {
-        const { windowWidth } = this.state
-
-        if (isMobile) {
-            if (windowWidth < 350) {
-                return { backgroundSize: '400%' }
-            }
-            if (windowWidth < 420) {
-                return { backgroundSize: '325%' }
-            }
-            else if (windowWidth < 1024) {
-                return { backgroundSize: '175%' }
-            }
-            else if (windowWidth < 1224) {
-                return { backgroundSize: '150%' }
-            }
-            else {
-                return { backgroundSize: '125%' }
-            }
-        }
-        else {
-            return { backgroundSize: '125%' }
-        }
-    }
-
     render() {
         const { setClass } = this
-        const exportData = [['Serial Number', 'Series', 'Denomination', 'Issue Date [Mo/Yr]']]
+        const exportData = [['Serial Number [optional]', 'Series [I, E, EE, S]', 'Denomination [25 - 10000 (no commas)]', 'Issue Date [Mo/Yr]']]
 
         return (
             <div>
-                <div className="jumbotron-pages"></div>
                 <div className={setClass('instruct-container')}>
-                    <h5 className={setClass('instruct-header')}>BOND ANATOMY</h5>
                     <div className={setClass('bond-anatomy')}>
                         <Image width='100%' src={Bond} alt="Savings Bond Anatomy"></Image>
                     </div>
-                    <h5 className={setClass('instruct-header')}>PRICING BONDS BY SPREADSHEET</h5>
                     <div className="steps">
                         {this.state.windowWidth < 500 ?
                             <React.Fragment>
@@ -95,7 +65,7 @@ class Instructions extends Component {
                                 </Row>
                                 <Row>
                                     <p style={{ marginBottom: '0' }}>
-                                        Download the <CSVLink filename="bond_import_template.csv" data={exportData}>CSV Template</CSVLink>
+                                        To build a spreadsheet of your bonds, start by downloading the <CSVLink filename="bond_import_template.csv" data={exportData}>CSV Template</CSVLink>
                                     </p>
                                 </Row>
                             </React.Fragment>
@@ -106,7 +76,7 @@ class Instructions extends Component {
                                 </Col>
                                 <Col>
                                     <p style={{ marginBottom: '0' }}>
-                                        Download the <CSVLink filename="bond_import_template.csv" data={exportData}>CSV Template</CSVLink>
+                                        To build a spreadsheet of your bonds, start by downloading the <CSVLink filename="bond_import_template.csv" data={exportData}>CSV Template</CSVLink>
                                     </p>
                                 </Col>
                             </Row>
@@ -119,9 +89,7 @@ class Instructions extends Component {
                                     <h5 style={{ marginBottom: '1rem' }}>STEP 2</h5>
                                 </Row>
                                 <Row>
-                                    <p>Open up the CSV Template in Microsoft Excel or similar application.</p>
-
-                                    <p>For each of your bonds, insert a new row into the spreadsheet.</p>
+                                    <p>Open up the CSV Template in Microsoft Excel or similar application. Following the directives in each column, insert a new row for each bond.</p>
                                     <p>Here are two valid examples:</p>
                                     <div style={{ width: '100%', overflow: 'hidden' }} >
                                         <Image style={{ margin: '-3px 0 0 -2px' }} src={csvExample} alt="Savings bond wizard blank spreadsheet" rounded fluid></Image>
@@ -134,9 +102,7 @@ class Instructions extends Component {
                                     <h5>STEP 2</h5>
                                 </Col>
                                 <Col>
-                                    <p>Open up the CSV Template in Microsoft Excel or similar application.</p>
-
-                                    <p>For each of your bonds, insert a new row into the spreadsheet.</p>
+                                    <p>Open up the CSV Template in Microsoft Excel or similar application. Following the directives in each column, insert a new row for each bond.</p>
                                     <p>Here are two valid examples:</p>
                                     <div style={{ width: '85%', overflow: 'hidden' }} >
                                         <Image style={{ margin: '-3px 0 0 -2px' }} src={csvExample} alt="Savings bond wizard blank spreadsheet" rounded fluid></Image>

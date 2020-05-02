@@ -283,7 +283,9 @@ class BondPricingOne extends Component {
 
         //http://localhost:5000/update
 
-        fetch('https://secure.thesavingsbondwizard.com/update', requestOptions)
+        //https://secure.thesavingsbondwizard.com/update
+
+        fetch('http://localhost:5000/update', requestOptions)
             .then(response => response.json())
             .then(response => {
                 try {

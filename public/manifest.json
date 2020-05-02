@@ -1,6 +1,7 @@
 {
-  "short_name": "VO Bonds",
-  "name": "VO Bonds React App",
+  "short_name": "The Savings Bond Wizard",
+  "name": "The Savings Bond Wizard",
+  "description": "Quickly and easily price, analyze and export all your I, E, EE Bonds and Savings Notes.",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",

@@ -49,18 +49,6 @@ input::-webkit-input-placeholder {
   white-space:nowrap !important;
 }
 
-.close {
-  position: absolute;
-  top: .75rem;
-  right: -1.25rem;
-}
-
-.close-mobile{
-  position: absolute;
-  top:.1rem;
-  right:-1.25rem;
-}
-
 .close:focus, .close:active, .close-mobile:focus,.close-mobile:active  {
   outline: none !important;
 }

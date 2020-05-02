@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Jumbotron, ListGroup, Card } from 'react-bootstrap';
+import { ListGroup, Card } from 'react-bootstrap';
 import TDirectLogo from '../images/treasury-direct.png';
 import '../styles/index.css'
 
@@ -50,7 +50,7 @@ class HomePage extends Component {
 
         return (
             <div>
-                <Jumbotron className={setClass('home-jumbotron')}>
+                <div className={setClass('home-jumbotron')}>
                     <h1>Quickly and easily price your savings bonds!</h1>
                     <h2 style={{ fontSize: '1rem' }}>Value, Aggregate, and Export any set of I, E, EE Series Bonds or Savings Notes.</h2>
                     <div style={{ marginTop: '3rem' }}>
@@ -60,7 +60,7 @@ class HomePage extends Component {
                             <ListGroup.Item className={setClass('home-choose')}><a style={{ color: '#ff420e', fontWeight: '500' }} href="/bond_pricing_spreadsheet">Price bonds from spreadsheet</a></ListGroup.Item>
                         </ListGroup>
                     </div>
-                </Jumbotron >
+                </div>
                 <div className={setClass('home-container')}>
                     <Card className={setClass('home-card')}>
                         <Card.Header className={'home-card-header'}>HOW WE DO IT</Card.Header>

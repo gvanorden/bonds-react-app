@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.nav-background-home {
+    position:absolute !important;
+    font-size:.85rem !important;
+    font-weight:bold !important;
+    color:#2a3132;
+}
+
+.nav-background {
+    background-image: url('/images/homepage-image.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    border-bottom:1px solid #d3d3d3;
+    font-size:.85rem !important;
+    font-weight:bold !important;
+    color:#2a3132;
+}
+
+.brand, .brand-tablet, .brand-mobile, .brand-mobile-sm {
+    margin-right:.25rem;
+}
+
+.brand-mobile, .brand-mobile-sm {
+    margin-top:-.25rem;
+}
+
+.brand-img, .brand-img-tablet, .brand-img-mobile {
+    height:2rem;
+    width:2rem;
+}
+
+.brand-img-mobile-sm {
+    height:1.25rem;
+    width:1.25rem;
+}
+
+.nav-link:hover, .nav-link:focus {
+    color:#707070 !important;
+}
+
+.bond-nav-link-mobile-sm {
+    padding:.5rem !important;
+    font-size:.65rem !important;
+}
+
+.bond-nav-link-mobile-sm > .dropdown-toggle {
+    padding:0 !important;
+}
