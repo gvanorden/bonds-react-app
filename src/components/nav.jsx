@@ -36,7 +36,12 @@ class Navigation extends Component {
 
     handleResize() {
         setTimeout(() => {
-            this.setState({ windowWidth: window.outerWidth, windowHeight: window.outerHeight })
+            if (window.outerWidth > 0 && window.outerHeight > 0) {
+                this.setState({ windowWidth: window.outerWidth, windowHeight: window.outerHeight })
+            }
+            else {
+                this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight })
+            }
         }, 100);
     }
 
