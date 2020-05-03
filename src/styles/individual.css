@@ -26,8 +26,8 @@ input[class^="form-month"] {
 
 .form-month-mobile, .form-month-mobile-sm {
     height:2rem !important;
-    line-height:2rem !important;
-    font-size:.9rem !important;
+    line-height:1rem !important;
+    font-size:.1rem !important;
 }
 
 .form-seperator-mobile, .form-seperator-mobile-sm {
@@ -47,9 +47,8 @@ input[class^="form-year"] {
 
 .form-year-mobile, .form-year-mobile-sm {
     height:2rem !important;
-    line-height:2rem !important;
+    line-height:1rem !important;
     font-size:1rem !important;
-    font-size:.9rem !important;
 }
 
 .bond-input-mobile, .bond-input-mobile-sm {
