@@ -271,6 +271,19 @@ class IndividualBonds extends Component {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
 
+    onSeriesChange() {
+        let series = document.getElementsByName('series')[0].value
+        if (series === 'S') {
+            this.setState({ denominationOptions: [25, 50, 75, 100] })
+        }
+        else if (series === 'E') {
+            this.setState({ denominationOptions: [25, 50, 75, 100, 200, 500, 1000, 5000, 10000] })
+        }
+        else {
+            this.setState({ denominationOptions: [50, 75, 100, 200, 500, 1000, 5000, 10000] })
+        }
+    }
+
     render() {
         const { setClass } = this
 
